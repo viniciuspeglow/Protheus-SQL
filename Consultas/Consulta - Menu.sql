@@ -1,0 +1,71 @@
+/*----------------------------------------------------------------------------------------*/
+/*                       Versão da consulta completa                                      */
+/*----------------------------------------------------------------------------------------*/
+
+/*Parte 1*/
+/*Filtro ID menu ( M_ID ) */
+SELECT * FROM MPMENU_MENU MPN WHERE M_NAME LIKE '%SIGACOM%'
+/*Parte 2*/
+ SELECT
+ M_ID, I_ID, I_TP_MENU, I_ITEMID, I_FATHER, F_FUNCTION, I_STATUS, I_ORDER, I_TABLES, I_ACCESS, I_DEFAULT, I_RESNAME, I_TYPE, I_OWNER, F_DEFAULT
+ , I_MODULE, I18N1.N_DESC N_PT, I18N2.N_DESC N_ES, I18N3.N_DESC N_EN, KW1.K_DESC K_PT, KW2.K_DESC K_ES, KW3.K_DESC K_EN
+ FROM MPMENU_MENU MPN
+ INNER JOIN MPMENU_ITEM MPI ON I_ID_MENU = M_ID AND MPI.D_E_L_E_T_ = ' '
+ LEFT JOIN MPMENU_FUNCTION MPF ON F_ID = I_ID_FUNC AND MPF.D_E_L_E_T_ = ' '
+ INNER JOIN MPMENU_I18N I18N1 ON I18N1.N_PAREN_ID = I_ID AND I18N1.N_LANG = '1' AND I18N1.D_E_L_E_T_ = ' '
+ INNER JOIN MPMENU_I18N I18N2 ON I18N2.N_PAREN_ID = I_ID AND I18N2.N_LANG = '2' AND I18N2.D_E_L_E_T_ = ' '
+ INNER JOIN MPMENU_I18N I18N3 ON I18N3.N_PAREN_ID = I_ID AND I18N3.N_LANG = '3' AND I18N3.D_E_L_E_T_ = ' '
+ LEFT JOIN MPMENU_KEY_WORDS KW1 ON KW1.K_ID_ITEM = I_ID AND KW1.K_LANG = '1' AND KW1.D_E_L_E_T_ = ' '
+ LEFT JOIN MPMENU_KEY_WORDS KW2 ON KW2.K_ID_ITEM = I_ID AND KW2.K_LANG = '2' AND KW2.D_E_L_E_T_ = ' '
+ LEFT JOIN MPMENU_KEY_WORDS KW3 ON KW3.K_ID_ITEM = I_ID AND KW3.K_LANG = '3' AND KW3.D_E_L_E_T_ = ' '
+ WHERE
+ M_ID ='8E937F58C6034840951B2647A180FFFA' AND MPN.D_E_L_E_T_ = ' ' ORDER  BY I_ORDER
+ 
+/*----------------------------------------------------------------------------------------*/
+/*                       Versão da consulta mais simplicada                               */
+/*----------------------------------------------------------------------------------------*/
+
+/*Parte 1*/
+/*Filtro ID menu ( M_ID ) */
+SELECT * FROM MPMENU_MENU MPN WHERE M_NAME LIKE '%SIGACOM%'
+/*Parte 2*/
+ SELECT
+I_STATUS, I_ORDER, I_TYPE, I18N1.N_DESC N_PT
+ FROM MPMENU_MENU MPN
+ INNER JOIN MPMENU_ITEM MPI ON I_ID_MENU = M_ID AND MPI.D_E_L_E_T_ = ' '
+ LEFT JOIN MPMENU_FUNCTION MPF ON F_ID = I_ID_FUNC AND MPF.D_E_L_E_T_ = ' '
+ INNER JOIN MPMENU_I18N I18N1 ON I18N1.N_PAREN_ID = I_ID AND I18N1.N_LANG = '1' AND I18N1.D_E_L_E_T_ = ' '
+ INNER JOIN MPMENU_I18N I18N2 ON I18N2.N_PAREN_ID = I_ID AND I18N2.N_LANG = '2' AND I18N2.D_E_L_E_T_ = ' '
+ INNER JOIN MPMENU_I18N I18N3 ON I18N3.N_PAREN_ID = I_ID AND I18N3.N_LANG = '3' AND I18N3.D_E_L_E_T_ = ' '
+ LEFT JOIN MPMENU_KEY_WORDS KW1 ON KW1.K_ID_ITEM = I_ID AND KW1.K_LANG = '1' AND KW1.D_E_L_E_T_ = ' '
+ LEFT JOIN MPMENU_KEY_WORDS KW2 ON KW2.K_ID_ITEM = I_ID AND KW2.K_LANG = '2' AND KW2.D_E_L_E_T_ = ' '
+ LEFT JOIN MPMENU_KEY_WORDS KW3 ON KW3.K_ID_ITEM = I_ID AND KW3.K_LANG = '3' AND KW3.D_E_L_E_T_ = ' '
+ WHERE
+ M_ID ='3621098257F8400080D891A0FF003EE2' AND MPN.D_E_L_E_T_ = ' ' ORDER  BY I_ORDER
+ 
+/*----------------------------------------------------------------------------------------*/
+/*                    Versão da consulta (apenas Nome mais função)                        */
+/*----------------------------------------------------------------------------------------*/
+  
+/*Parte 1*/
+/*Filtro ID menu ( M_ID ) */
+SELECT * FROM MPMENU_MENU MPN WHERE M_NAME LIKE '%SIGACOM%'
+/*Parte 2*/
+SELECT
+ CASE
+	WHEN I_TYPE = '0' THEN I18N1.N_DESC
+	WHEN I_TYPE = '1' THEN CONCAT(TRIM(I18N1.N_DESC),' - ',F_FUNCTION)
+	ELSE ''
+ END AS 'Descrição + Rotina'
+ --,I_STATUS, I_ORDER, I_TYPE, I18N1.N_DESC N_PT, F_FUNCTION  
+ FROM MPMENU_MENU MPN
+ INNER JOIN MPMENU_ITEM MPI ON I_ID_MENU = M_ID AND MPI.D_E_L_E_T_ = ' '
+ LEFT JOIN MPMENU_FUNCTION MPF ON F_ID = I_ID_FUNC AND MPF.D_E_L_E_T_ = ' '
+ INNER JOIN MPMENU_I18N I18N1 ON I18N1.N_PAREN_ID = I_ID AND I18N1.N_LANG = '1' AND I18N1.D_E_L_E_T_ = ' '
+ INNER JOIN MPMENU_I18N I18N2 ON I18N2.N_PAREN_ID = I_ID AND I18N2.N_LANG = '2' AND I18N2.D_E_L_E_T_ = ' '
+ INNER JOIN MPMENU_I18N I18N3 ON I18N3.N_PAREN_ID = I_ID AND I18N3.N_LANG = '3' AND I18N3.D_E_L_E_T_ = ' '
+ LEFT JOIN MPMENU_KEY_WORDS KW1 ON KW1.K_ID_ITEM = I_ID AND KW1.K_LANG = '1' AND KW1.D_E_L_E_T_ = ' '
+ LEFT JOIN MPMENU_KEY_WORDS KW2 ON KW2.K_ID_ITEM = I_ID AND KW2.K_LANG = '2' AND KW2.D_E_L_E_T_ = ' '
+ LEFT JOIN MPMENU_KEY_WORDS KW3 ON KW3.K_ID_ITEM = I_ID AND KW3.K_LANG = '3' AND KW3.D_E_L_E_T_ = ' '
+ WHERE
+ M_ID ='79EF7D7102124E11B80B9D19A4899792' AND MPN.D_E_L_E_T_ = ' ' ORDER  BY I_ORDER
