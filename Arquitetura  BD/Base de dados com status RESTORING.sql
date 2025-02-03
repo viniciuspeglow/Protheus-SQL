@@ -1,0 +1,1 @@
+RESTORE DATABASE "Nome_do_banco" WITH RECOVERY
